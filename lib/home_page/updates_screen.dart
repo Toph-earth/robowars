@@ -164,30 +164,6 @@ class _UpdatesPageState extends State<UpdatesPage> {
       ),
       // Location should be separate
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: FluidNavBar(
-        icons: [
-          Icons.home_filled,
-          Icons.calendar_month,
-          Icons.groups,
-          Icons.campaign,
-        ],
-        labels: ['Home', 'Schedule', 'Teams', 'Updates'],
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        context: context,
-        activeGradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 117, 50, 240),
-            Color.fromARGB(255, 135, 100, 181),
-            Color.fromARGB(255, 186, 155, 226),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        inactiveColor: Colors.grey,
-        barBackgroundColor: Color.fromARGB(255, 33, 33, 33),
-        bubbleSize: 50.0,
-      ),
 
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90 + MediaQuery.of(context).padding.top),

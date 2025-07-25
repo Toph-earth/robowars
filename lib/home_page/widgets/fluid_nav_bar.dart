@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FluidNavBar extends StatefulWidget {
+import '../provider/nav_provider.dart';
+
+class FluidNavBar extends ConsumerStatefulWidget {
   final List<IconData> icons;
   final List<String>? labels;
   final int currentIndex;
@@ -32,12 +35,12 @@ class FluidNavBar extends StatefulWidget {
        super(key: key);
 
   @override
-  _FluidNavBarState createState() => _FluidNavBarState();
+  ConsumerState<FluidNavBar> createState() => _FluidNavBarState();
 }
 
-class _FluidNavBarState extends State<FluidNavBar>
+class _FluidNavBarState extends ConsumerState<FluidNavBar>
     with SingleTickerProviderStateMixin {
-  late int _currentIndex;
+  //late int _currentIndex;
   late AnimationController _controller;
   late Animation<double> _animation;
   int? _previousIndex;
@@ -45,7 +48,6 @@ class _FluidNavBarState extends State<FluidNavBar>
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.currentIndex;
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
@@ -72,34 +74,16 @@ class _FluidNavBarState extends State<FluidNavBar>
     super.dispose();
   }
 
-  void _handleTap(int index) {
-    if (index != _currentIndex) {
-      _previousIndex = _currentIndex;
-      setState(() => _currentIndex = index);
-      widget.onTap(index);
-      _controller.forward(from: 0);
-      switch (index) {
-        case 0:
-          Navigator.pushNamed(widget.context, '/home');
-          break;
-        case 1:
-          Navigator.pushNamed(widget.context, '/schedule');
-          break;
-        case 2:
-          Navigator.pushNamed(widget.context, '/teams');
-          break;
-        case 3:
-          Navigator.pushNamed(widget.context, '/updates');
-          break;
-      }
-    }
+  void _handleTap(int index, BuildContext context) {
+    widget.onTap(index);
   }
 
   @override
   Widget build(BuildContext context) {
+    final currentIndex = ref.watch(navigationProvider);
     final iconCount = widget.icons.length;
     final iconWidth = MediaQuery.of(context).size.width / iconCount;
-    final bubbleCenter = iconWidth * _currentIndex + iconWidth / 2;
+    final bubbleCenter = iconWidth * currentIndex + iconWidth / 2;
     final safeAreaBottom = MediaQuery.of(context).padding.bottom;
 
     return SizedBox(
@@ -118,12 +102,12 @@ class _FluidNavBarState extends State<FluidNavBar>
                   // Animate between positions
                   final fromCenter =
                       iconWidth * _previousIndex! + iconWidth / 2;
-                  final toCenter = iconWidth * _currentIndex + iconWidth / 2;
+                  final toCenter = iconWidth * currentIndex + iconWidth / 2;
                   bubbleCenter =
                       fromCenter + (toCenter - fromCenter) * _animation.value;
                 } else {
                   // Resting position
-                  bubbleCenter = iconWidth * _currentIndex + iconWidth / 2;
+                  bubbleCenter = iconWidth * currentIndex + iconWidth / 2;
                 }
 
                 return ClipPath(
@@ -142,10 +126,10 @@ class _FluidNavBarState extends State<FluidNavBar>
           Positioned.fill(
             child: Row(
               children: List.generate(iconCount, (index) {
-                final isActive = index == _currentIndex;
+                final isActive = index == currentIndex;
                 return Expanded(
                   child: GestureDetector(
-                    onTap: () => _handleTap(index),
+                    onTap: () => _handleTap(index, context),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -191,15 +175,15 @@ class _FluidNavBarState extends State<FluidNavBar>
                     iconWidth * _previousIndex! +
                     (iconWidth - widget.bubbleSize) / 2;
                 final toLeft =
-                    iconWidth * _currentIndex +
+                    iconWidth * currentIndex +
                     (iconWidth - widget.bubbleSize) / 2;
                 left = fromLeft + (toLeft - fromLeft) * _animation.value;
                 icon = widget.icons[_previousIndex!];
               } else {
                 left =
-                    iconWidth * _currentIndex +
+                    iconWidth * currentIndex +
                     (iconWidth - widget.bubbleSize) / 2;
-                icon = widget.icons[_currentIndex];
+                icon = widget.icons[currentIndex];
               }
 
               return Positioned(
@@ -248,7 +232,7 @@ class _BarClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    final dipDepth = bubbleRadius * 2.2;
+    final dipDepth = bubbleRadius * 1.8;
 
     path.moveTo(0, 0);
     path.lineTo(bubbleCenter - bubbleRadius * 1.5, 0);

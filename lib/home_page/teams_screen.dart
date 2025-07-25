@@ -10,7 +10,6 @@ class TeamScreen extends StatefulWidget {
 }
 
 class _TeamScreenState extends State<TeamScreen> {
-  int _selectedIndex = 2;
   bool isTeamsSelected = true;
 
   final List<Map<String, dynamic>> teamsData = List.generate(
@@ -178,94 +177,99 @@ class _TeamScreenState extends State<TeamScreen> {
                 onTap: () => _showTeamPopup(context, team),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Container(
-                          width: 70,
-                          height: 70,
+                  child: SizedBox(  // Added SizedBox to constrain width
+                    width: double.infinity,  // Ensure full width
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Team image container
+                        Container(
+                          padding: const EdgeInsets.all(2),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            gradient: const LinearGradient(
-                              colors: [Colors.deepPurple, Colors.black],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
+                            border: Border.all(color: Colors.white, width: 2),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              gradient: const LinearGradient(
+                                colors: [Colors.deepPurple, Colors.black],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15, top: 4),
-                              child: Text(
-                                team['name'],
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.bold,
+                        const SizedBox(width: 16),
+                        Expanded(  // This Expanded is now properly placed
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,  // Added this
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15, top: 4),
+                                child: Text(
+                                  team['name'],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 27,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 6),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: bots.map<Widget>((bot) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 6 , left: 15),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                        colors: [Color(0xFF9D3AE7), Color(0xFF6A1B9A)],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      ),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    padding: const EdgeInsets.all(1.5), // Border thickness
+                              const SizedBox(height: 6),
+                              Column(  // Removed Expanded from here
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: bots.map<Widget>((bot) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 6, left: 15),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         gradient: const LinearGradient(
-                                          colors: [Colors.white, Colors.white],
-                                          begin: Alignment.center,
-                                          end: Alignment.centerRight,
+                                          colors: [Color(0xFF9D3AE7), Color(0xFF6A1B9A)],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
                                         ),
-                                        borderRadius: BorderRadius.circular(18),
+                                        borderRadius: BorderRadius.circular(20),
                                       ),
-                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                      child: Text(
-                                        '${bot['name']} (${bot['weight']})',
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.black,
+                                      padding: const EdgeInsets.all(1.5),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          gradient: const LinearGradient(
+                                            colors: [Colors.white, Colors.white],
+                                            begin: Alignment.center,
+                                            end: Alignment.centerRight,
+                                          ),
+                                          borderRadius: BorderRadius.circular(18),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 6),
+                                        child: Text(
+                                          '${bot['name']} (${bot['weight']})',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ],
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
             },
           ),
         ),
-
         // Fade at bottom
         Positioned(
           left: 0,

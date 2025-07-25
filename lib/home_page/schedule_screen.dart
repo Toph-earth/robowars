@@ -122,18 +122,6 @@ class _ScheduleState extends State<Schedule> {
           ),
 
 
-
-
-
-
-
-
-
-
-
-
-
-
           //Upcoming
 
           Expanded(
