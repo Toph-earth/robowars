@@ -132,29 +132,61 @@ class _FluidNavBarState extends ConsumerState<FluidNavBar>
                     onTap: () => _handleTap(index, context),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         if (!isActive) ...[
-                          SizedBox(height: widget.barHeight - 24),
+                          SizedBox(
+                            height: widget.barHeight - 44,
+                          ), // More space for labels
                           Icon(
                             widget.icons[index],
                             size: widget.iconSize,
                             color: widget.inactiveColor,
                           ),
-                        ],
-                        if (widget.labels != null &&
-                            widget.labels!.length > index)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              widget.labels![index],
-                              style: TextStyle(
-                                color: isActive
-                                    ? widget.activeColor
-                                    : widget.inactiveColor,
-                                fontSize: 10,
+                          // Show labels only for inactive items
+                          if (widget.labels != null &&
+                              widget.labels!.length > index)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4.0,
+                                bottom: 8.0,
+                              ),
+                              child: Text(
+                                widget.labels![index],
+                                style: TextStyle(
+                                  color: widget.inactiveColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
                             ),
-                          ),
+                        ] else ...[
+                          // For active item, just add spacing (no icon/label since it's in the bubble)
+                          SizedBox(height: widget.barHeight - 20),
+                          if (widget.labels != null &&
+                              widget.labels!.length > index)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 4.0,
+                                bottom: 8.0,
+                              ),
+                              child: Text(
+                                widget.labels![index],
+                                style: TextStyle(
+                                  color: widget.activeColor,
+                                  fontSize: 11,
+                                  fontWeight:
+                                      FontWeight.bold, // Make active label bold
+                                ),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                        ],
                       ],
                     ),
                   ),
@@ -187,7 +219,7 @@ class _FluidNavBarState extends ConsumerState<FluidNavBar>
               }
 
               return Positioned(
-                bottom: 15 + safeAreaBottom, // Adjusted to raise the bubble
+                bottom: 30 + safeAreaBottom, // Adjusted to raise the bubble
                 left: left,
                 child: Container(
                   width: widget.bubbleSize,

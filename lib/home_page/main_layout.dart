@@ -23,18 +23,21 @@ class MainLayout extends ConsumerWidget {
     return Scaffold(
       extendBody: true,
       body: PageView(
-       controller: pageController,
-       physics: const BouncingScrollPhysics(),
+        controller: pageController,
+        physics: const BouncingScrollPhysics(),
         onPageChanged: (index) {
-         ref.read(navigationProvider.notifier).setIndex(index);
+          ref.read(navigationProvider.notifier).setIndex(index);
         },
         children: _pages,
       ),
       bottomNavigationBar: FluidNavBar(
         currentIndex: currentIndex,
         onTap: (index) {
-          pageController.animateToPage(index, duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut);
+          pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
         },
         context: context,
         icons: const [
@@ -57,7 +60,7 @@ class MainLayout extends ConsumerWidget {
         activeColor: Colors.white,
         inactiveColor: Colors.grey,
         iconSize: 24.0,
-        barHeight: 60.0,
+        barHeight: 65.0,
         bubbleSize: 52.0,
       ),
     );

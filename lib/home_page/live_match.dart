@@ -115,9 +115,9 @@ class _LiveMatchState extends State<LiveMatch> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(2.0),
-                child: Expanded(
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
                     'Team Xenon Vs Team TerrorBulls',
                     style: GoogleFonts.montserrat(
@@ -126,6 +126,26 @@ class _LiveMatchState extends State<LiveMatch> {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Score: 2 - 1',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Time: 45:00',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
