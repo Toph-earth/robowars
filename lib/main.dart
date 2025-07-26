@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:robowars_app/home_page/home_screen.dart';
 import 'package:robowars_app/home_page/profile_screen.dart';
 import 'package:robowars_app/home_page/schedule_screen.dart';
+import 'package:robowars_app/home_page/teams_page.dart';
 import 'package:robowars_app/home_page/teams_screen.dart';
 import 'package:robowars_app/home_page/updates_screen.dart';
 import 'package:robowars_app/home_page/widgets/test_screen.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/schedule' : (context) => MainLayout(),
         '/teams': (context) => MainLayout(),
         '/updates' : (context) => MainLayout(),
+        '/teams' : (context) => const OurTeamPage(),
       }
     );
   }
