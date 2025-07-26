@@ -22,99 +22,103 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: Colors.black,
-      appBar:AppBar(
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
+      child: Scaffold(
+        extendBody: true,
         backgroundColor: Colors.black,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(10),
-          child: logo,
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Home",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Trajan Pro',
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.all(10),
+            child: logo,
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/teams');
-              },
-              child: Icon(
-                Icons.groups,
-                color: Color(0xFF9C49E2),
-                size: 35,
+          centerTitle: true,
+          title: const Text(
+            "Home",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Trajan Pro',
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/teams');
+                },
+                child: const Icon(
+                  Icons.groups,
+                  color: Color(0xFF9C49E2),
+                  size: 35,
+                ),
               ),
             ),
-
-
-
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-       child: Column(children: [
-         Container(
-           height: 4,
-           margin: const EdgeInsets.symmetric(horizontal: 30),
-           decoration: const BoxDecoration(
-             gradient: LinearGradient(
-               begin: Alignment.centerLeft,
-               end: Alignment.centerRight,
-               colors: [
-                 Colors.transparent,
-                 Color(0xFFB84BFF),
-                 Colors.transparent,
-               ],
-               stops: [0, 0.5, 1.0],
-             ),
-           ),
-         ),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      GuessGame(),
-                      SizedBox(height: 20),
-                      LiveMatch(),
-                      SizedBox(height: 20),
-                      KeyContenders(
-                        contenders: [
-                          Contender(
-                            name: "Raven (60 kg)",
-                            team: "Team Orcus",
-                            result: "Wins",
-                          ),
-                          Contender(
-                            name: "Vulcan (15 kg)",
-                            team: "Team Orcus",
-                            result: "Wins",
-                          ),
-                        ],
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              height: 4,
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.transparent,
+                    Color(0xFFB84BFF),
+                    Colors.transparent,
+                  ],
+                  stops: [0, 0.5, 1.0],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  GuessGame(),
+                  const SizedBox(height: 20),
+                  LiveMatch(),
+                  const SizedBox(height: 20),
+                  KeyContenders(
+                    contenders: [
+                      Contender(
+                        name: "Raven (60 kg)",
+                        team: "Team Orcus",
+                        result: "Wins",
                       ),
-                      SizedBox(height: 20),
-                      QuickStats(
-                        stats: {
-                          "Matches": "6",
-                          "Wins": "4",
-                          "Losses": "2",
-                          "KOs": "3",
-                        },
+                      Contender(
+                        name: "Vulcan (15 kg)",
+                        team: "Team Orcus",
+                        result: "Wins",
                       ),
-                      SizedBox(height: kBottomNavigationBarHeight+16),
                     ],
                   ),
-                ),
-      ]),
+                  const SizedBox(height: 20),
+                  QuickStats(
+                    stats: {
+                      "Matches": "6",
+                      "Wins": "4",
+                      "Losses": "2",
+                      "KOs": "3",
+                    },
+                  ),
+                  SizedBox(height: kBottomNavigationBarHeight + 16),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

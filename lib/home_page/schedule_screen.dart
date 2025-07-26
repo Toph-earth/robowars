@@ -18,6 +18,7 @@ class _ScheduleState extends State<Schedule> {
     ['Team Shadow', 'Team Xenon'],
     ['Team Shadow', 'Team Xenon']
   ];
+
   List<List> BotNames = [
     ['Name of bot', 'Name of bot'],
     ['Name of bot', 'Name of bot'],
@@ -25,6 +26,7 @@ class _ScheduleState extends State<Schedule> {
     ['Name of bot', 'Name of bot'],
     ['Name of bot', 'Name of bot']
   ];
+
   List<String> Winners = [
     'Team Shadow',
     'Team Shadow',
@@ -35,111 +37,136 @@ class _ScheduleState extends State<Schedule> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+      ),
+      child: Scaffold(
         backgroundColor: Colors.black,
-        elevation: 0,
-        leading: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SvgPicture.asset(
-            'assets/images/robovitics logo.svg',
-            height: 40,
-            width: 40,
-          ),
-        ),
-        centerTitle: true,
-        title: const Text(
-          "Schedule",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Trajan Pro',
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/teams');
-              },
-              child: const Icon(
-                Icons.groups,
-                color: Color(0xFF9C49E2),
-                size: 35,
-              ),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SvgPicture.asset(
+              'assets/images/robovitics logo.svg',
+              height: 40,
+              width: 40,
             ),
           ),
-        ],
-      ),
+          centerTitle: true,
+          title: const Text(
+            "Schedule",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Trajan Pro',
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/teams');
+                },
+                child: const Icon(
+                  Icons.groups,
+                  color: Color(0xFF9C49E2),
+                  size: 35,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            // 🔹 Gradient line below AppBar
+            Container(
+              height: 4,
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.transparent,
+                    Color(0xFFB84BFF),
+                    Colors.transparent,
+                  ],
+                  stops: [0, 0.5, 1.0],
+                ),
+              ),
+            ),
 
-      // 🔹 Gradient line below AppBar
-      body: Column(
-        children: [
-          Container(
-            height: 4,
-            margin: const EdgeInsets.symmetric(horizontal: 30),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.transparent,
-                  Color(0xFFB84BFF),
-                  Colors.transparent,
+            // 🔸 Tabs
+            Container(
+              width: 240,
+              margin: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Row(
+                children: [
+                  _scheduleToggleButton(label: 'Upcoming', isUpcoming: true),
+                  _scheduleToggleButton(label: 'Completed', isUpcoming: false),
                 ],
-                stops: [0, 0.5, 1.0],
+              ),
+            ),
+
+            // 🔸 Match List
+            Expanded(
+              child: selectedTab == 'Upcoming'
+                  ? buildMatchList(showWinner: false)
+                  : buildMatchList(showWinner: true),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _scheduleToggleButton({required String label, required bool isUpcoming}) {
+    final selected = (selectedTab == 'Upcoming') == isUpcoming;
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() {
+          selectedTab = isUpcoming ? 'Upcoming' : 'Completed';
+        }),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          decoration: BoxDecoration(
+            gradient: selected
+                ? const LinearGradient(
+              colors: [Color(0xFF9D3AE7), Color(0xFFC88DF5)],
+              begin: Alignment.centerLeft,
+              end: Alignment.bottomCenter,
+            )
+                : null,
+            color: selected ? null : Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: selected ? Colors.black : Colors.white,
               ),
             ),
           ),
-
-          // 🔸 Tabs
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildTabButton('Upcoming'),
-              _buildTabButton('Completed'),
-            ],
-          ),
-
-          // 🔸 Match List
-          Expanded(
-            child: selectedTab == 'Upcoming'
-                ? buildMatchList(showWinner: false)
-                : buildMatchList(showWinner: true),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // 🔸 Tab Widget
-  Widget _buildTabButton(String tabName) {
-    return GestureDetector(
-      onTap: () => setState(() => selectedTab = tabName),
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
-        decoration: BoxDecoration(
-          gradient: selectedTab == tabName
-              ? const LinearGradient(colors: [Colors.purple, Color(0xFFB84BFF)])
-              : const LinearGradient(colors: [Color(0xFF212121), Color(0xFF212121)]),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(
-          tabName,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
         ),
       ),
     );
   }
 
-  // 🔸 Match Cards Builder
   Widget buildMatchList({required bool showWinner}) {
     return ListView.builder(
       padding: const EdgeInsets.all(10),
@@ -232,23 +259,26 @@ class _ScheduleState extends State<Schedule> {
                           TextSpan(
                             text: 'V',
                             style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                             children: [
                               TextSpan(
                                 text: '/',
                                 style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFB84BFF)),
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFB84BFF),
+                                ),
                               ),
                               TextSpan(
                                 text: 'S',
                                 style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -286,8 +316,7 @@ class _ScheduleState extends State<Schedule> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(color: Colors.purpleAccent),
