@@ -1,13 +1,139 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:robowars_app/home_page/widgets/fluid_nav_bar.dart';
 
-class UpdatesPage extends StatefulWidget {
+class UpdatesPage extends StatelessWidget {
   const UpdatesPage({super.key});
 
   @override
-  State<UpdatesPage> createState() => _UpdatesPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
 
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
+      bottomNavigationBar: Container(
+        color: const Color(0xFF1C1C1C),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 65,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            Icon(Icons.home, color: Colors.white),
+            Icon(Icons.calendar_month, color: Colors.white),
+            Icon(Icons.group, color: Colors.white), // active icon
+          ],
+        ),
+      ),
+
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(10),
+          child: SvgPicture.asset(
+            'assets/images/robovitics logo.svg',
+            height: 40,
+            width: 40,
+          ),
+        ),
+        centerTitle: true,
+        title: const Text(
+          "Updates",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Trajan Pro',
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/teams');
+              },
+              child: Icon(
+                Icons.groups,
+                color: Color(0xFF9C49E2),
+                size: 35,
+              ),
+            ),
+          ),
+        ],
+      ),
+
+      body: SafeArea(
+        child: Column(
+          children: [
+            // 🔹 Gradient Line like HomeScreen
+            Container(
+              height: 4,
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    Colors.transparent,
+                    Color(0xFFB84BFF),
+                    Colors.transparent,
+                  ],
+                  stops: [0, 0.5, 1.0],
+                ),
+              ),
+            ),
+
+            // 🔹 Main Content
+            Expanded(
+              child: Stack(
+                children: [
+                  // Watermark Background
+                  Center(
+                    child: Opacity(
+                      opacity: 0.04,
+                      child: SvgPicture.asset(
+                        'assets/logo.svg',
+                        width: 300,
+                      ),
+                    ),
+                  ),
+
+                  // Message List
+                  ListView(
+                    padding: const EdgeInsets.only(bottom: 20, top: 10),
+                    children: [
+                      buildUpdateCard(
+                        name: "John Doe",
+                        message:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                        time: "9:00 am",
+                      ),
+                      buildUpdateCard(
+                        name: "Jane Doe",
+                        message:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                        time: "9:00 am",
+                      ),
+                      buildDateDivider("Yesterday"),
+                      buildUpdateCard(
+                        name: "John Doe",
+                        message:
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+                        time: "9:00 am",
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //  Update Card Widget
   static Widget buildUpdateCard({
     required String name,
     required String message,
@@ -31,17 +157,21 @@ class UpdatesPage extends StatefulWidget {
               ),
               child: Stack(
                 children: [
+                  //  Background Watermark
                   Positioned.fill(
                     child: Opacity(
                       opacity: 0.05,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: SvgPicture.asset('assets/images/robovitics logo.svg',
+                        child: Image.asset(
+                          'assets/chat_watermark.png',
                           fit: BoxFit.contain,
                         ),
                       ),
                     ),
                   ),
+
+                  //  Foreground Content
                   Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Column(
@@ -87,11 +217,13 @@ class UpdatesPage extends StatefulWidget {
     );
   }
 
+  //  Date Divider with Gradient Line
   static Widget buildDateDivider(String label) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 16),
       child: Row(
         children: [
+          // Left Gradient Line
           Expanded(
             child: Container(
               height: 2,
@@ -107,6 +239,8 @@ class UpdatesPage extends StatefulWidget {
               ),
             ),
           ),
+
+          // Text Label
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
@@ -117,6 +251,8 @@ class UpdatesPage extends StatefulWidget {
               ),
             ),
           ),
+
+          // Right Gradient Line
           Expanded(
             child: Container(
               height: 2,
@@ -131,133 +267,6 @@ class UpdatesPage extends StatefulWidget {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _UpdatesPageState extends State<UpdatesPage> {
-  int _currentIndex = 0;
-  final Widget logo = SvgPicture.asset(
-    'assets/images/robovitics logo.svg',
-    height: 40,
-    width: 40,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).padding.bottom,
-          right: 10.0, // Don't forget horizontal padding
-        ),
-        child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: const Color(0xFF8439F9),
-          child: const Icon(Icons.campaign, color: Colors.white),
-        ),
-      ),
-      // Location should be separate
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90 + MediaQuery.of(context).padding.top),
-        child: Container(
-          color: Colors.black,
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    logo,
-                    const Text(
-                      "Updates",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Trajan Pro',
-                      ),
-                    ),
-                    Icon(
-                      Icons.account_circle_outlined,
-                      color: Color(0xFF9C49E2),
-                      size: 45,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 4,
-                margin: const EdgeInsets.symmetric(horizontal: 30),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.transparent,
-                      Color(0xFFB84BFF),
-                      Colors.transparent,
-                    ],
-                    stops: [0, 0.5, 1.0],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-
-      body: Stack(
-        children: [
-          Center(
-            child: Opacity(
-              opacity: 0.04,
-              child: SvgPicture.asset(
-                'assets/logo.svg',
-                width: 300,
-              ),
-            ),
-          ),
-          ListView(
-            padding: const EdgeInsets.only(bottom: 20, top: 10),
-            children: [
-              UpdatesPage.buildUpdateCard(
-                name: "John Doe",
-                message: "The competition schedule has been updated. Please check the new timings for your matches.",
-                time: "9:00 am",
-              ),
-              UpdatesPage.buildUpdateCard(
-                name: "Jane Smith",
-                message: "Team registration deadline has been extended to Friday. Make sure to submit all required documents.",
-                time: "10:30 am",
-              ),
-              UpdatesPage.buildDateDivider("Yesterday"),
-              UpdatesPage.buildUpdateCard(
-                name: "Event Coordinator",
-                message: "Reminder: Mandatory safety briefing tomorrow at 11 AM in the main auditorium.",
-                time: "3:45 pm",
-              ),
-              UpdatesPage.buildUpdateCard(
-                name: "Technical Team",
-                message: "New rule update: All robots must pass weight verification before each match.",
-                time: "5:20 pm",
-              ),
-              UpdatesPage.buildDateDivider("May 24"),
-              UpdatesPage.buildUpdateCard(
-                name: "Organizing Committee",
-                message: "Congratulations to Team Phoenix for winning the innovation award!",
-                time: "7:00 pm",
-              ),
-            ],
           ),
         ],
       ),

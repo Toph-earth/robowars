@@ -45,11 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
-            child: Icon(
-              Icons.account_circle_outlined,
-              color: Color(0xFF9C49E2),
-              size: 35,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/teams');
+              },
+              child: Icon(
+                Icons.groups,
+                color: Color(0xFF9C49E2),
+                size: 35,
+              ),
             ),
+
+
+
           ),
         ],
       ),
