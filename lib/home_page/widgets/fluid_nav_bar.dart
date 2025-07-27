@@ -148,14 +148,14 @@ class _FluidNavBarState extends ConsumerState<FluidNavBar>
                               widget.labels!.length > index)
                             Padding(
                               padding: const EdgeInsets.only(
-                                top: 4.0,
-                                bottom: 8.0,
+                                top: 2.0,
+                                bottom: 4.0,
                               ),
                               child: Text(
                                 widget.labels![index],
                                 style: TextStyle(
                                   color: widget.inactiveColor,
-                                  fontSize: 11,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.w500,
                                 ),
                                 textAlign: TextAlign.center,
@@ -165,19 +165,19 @@ class _FluidNavBarState extends ConsumerState<FluidNavBar>
                             ),
                         ] else ...[
                           // For active item, just add spacing (no icon/label since it's in the bubble)
-                          SizedBox(height: widget.barHeight - 20),
+                          SizedBox(height: widget.barHeight - 10),
                           if (widget.labels != null &&
                               widget.labels!.length > index)
                             Padding(
                               padding: const EdgeInsets.only(
-                                top: 4.0,
-                                bottom: 8.0,
+                                top: 2.0,
+                                bottom: 4.0,
                               ),
                               child: Text(
                                 widget.labels![index],
                                 style: TextStyle(
                                   color: widget.activeColor,
-                                  fontSize: 11,
+                                  fontSize: 10,
                                   fontWeight:
                                       FontWeight.bold, // Make active label bold
                                 ),

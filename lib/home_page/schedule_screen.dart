@@ -16,7 +16,7 @@ class _ScheduleState extends State<Schedule> {
     ['Team Shadow', 'Team Xenon'],
     ['Team Shadow', 'Team Xenon'],
     ['Team Shadow', 'Team Xenon'],
-    ['Team Shadow', 'Team Xenon']
+    ['Team Shadow', 'Team Xenon'],
   ];
 
   List<List> BotNames = [
@@ -24,7 +24,7 @@ class _ScheduleState extends State<Schedule> {
     ['Name of bot', 'Name of bot'],
     ['Name of bot', 'Name of bot'],
     ['Name of bot', 'Name of bot'],
-    ['Name of bot', 'Name of bot']
+    ['Name of bot', 'Name of bot'],
   ];
 
   List<String> Winners = [
@@ -32,7 +32,7 @@ class _ScheduleState extends State<Schedule> {
     'Team Shadow',
     'Team Shadow',
     'Team Shadow',
-    'Team Shadow'
+    'Team Shadow',
   ];
 
   @override
@@ -48,6 +48,8 @@ class _ScheduleState extends State<Schedule> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           elevation: 0,
+          scrolledUnderElevation: 0, // Disable elevation when scrolled
+          surfaceTintColor: Colors.transparent, // Remove tint changes
           leading: Padding(
             padding: const EdgeInsets.all(10),
             child: SvgPicture.asset(
@@ -121,9 +123,10 @@ class _ScheduleState extends State<Schedule> {
 
             // 🔸 Match List
             Expanded(
-              child: selectedTab == 'Upcoming'
-                  ? buildMatchList(showWinner: false)
-                  : buildMatchList(showWinner: true),
+              child:
+                  selectedTab == 'Upcoming'
+                      ? buildMatchList(showWinner: false)
+                      : buildMatchList(showWinner: true),
             ),
           ],
         ),
@@ -131,25 +134,30 @@ class _ScheduleState extends State<Schedule> {
     );
   }
 
-  Widget _scheduleToggleButton({required String label, required bool isUpcoming}) {
+  Widget _scheduleToggleButton({
+    required String label,
+    required bool isUpcoming,
+  }) {
     final selected = (selectedTab == 'Upcoming') == isUpcoming;
 
     return Expanded(
       child: GestureDetector(
-        onTap: () => setState(() {
-          selectedTab = isUpcoming ? 'Upcoming' : 'Completed';
-        }),
+        onTap:
+            () => setState(() {
+              selectedTab = isUpcoming ? 'Upcoming' : 'Completed';
+            }),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           decoration: BoxDecoration(
-            gradient: selected
-                ? const LinearGradient(
-              colors: [Color(0xFF9D3AE7), Color(0xFFC88DF5)],
-              begin: Alignment.centerLeft,
-              end: Alignment.bottomCenter,
-            )
-                : null,
+            gradient:
+                selected
+                    ? const LinearGradient(
+                      colors: [Color(0xFF9D3AE7), Color(0xFFC88DF5)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.bottomCenter,
+                    )
+                    : null,
             color: selected ? null : Colors.transparent,
             borderRadius: BorderRadius.circular(20),
           ),
@@ -169,7 +177,7 @@ class _ScheduleState extends State<Schedule> {
 
   Widget buildMatchList({required bool showWinner}) {
     return ListView.builder(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.fromLTRB(15, 15, 15, 100),
       itemCount: Teams.length,
       itemBuilder: (context, index) {
         return Container(
@@ -199,156 +207,165 @@ class _ScheduleState extends State<Schedule> {
                   ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Top Row
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 15, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "${Teams[index][0]}\n(${BotNames[index][0]})",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        showWinner
-                            ? const Text(
-                          "WINNERS",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Montserrat',
-                          ),
-                        )
-                            : const Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Starts at",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            Text(
-                              "3:30 p.m",
-                              style: TextStyle(
-                                color: Color(0xFFB84BFF),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Text.rich(
-                          TextSpan(
-                            text: 'V',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: '/',
-                                style: TextStyle(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFB84BFF),
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'S',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 173,
+                ), // Constrain height
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Top Row
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 15,
+                        left: 15,
+                        right: 10,
                       ),
-                      if (showWinner)
-                        Transform.translate(
-                          offset: const Offset(0, -20),
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Text(
-                              Winners[index],
-                              style: const TextStyle(
-                                color: Color(0xFFBA9BE2),
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${Teams[index][0]}\n(${BotNames[index][0]})",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 13),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
+                          showWinner
+                              ? const Text(
+                                "WINNERS",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              )
+                              : const Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Starts at",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Text(
+                                    "3:30 p.m",
+                                    style: TextStyle(
+                                      color: Color(0xFFB84BFF),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${Teams[index][1]}\n(${BotNames[index][1]})",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.purpleAccent),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Color(0xFFFFFFFF),
-                                Color(0xFF8F8F8F),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Text.rich(
+                            TextSpan(
+                              text: 'V',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: '/',
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFB84BFF),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'S',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ],
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 4,
-                                offset: const Offset(2, 2),
-                              ),
-                            ],
-                          ),
-                          child: const Text(
-                            "Category (15 kg)",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
                           ),
                         ),
+                        if (showWinner)
+                          Transform.translate(
+                            offset: const Offset(0, -20),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Text(
+                                Winners[index],
+                                style: const TextStyle(
+                                  color: Color(0xFFBA9BE2),
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 13),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${Teams[index][1]}\n(${BotNames[index][1]})",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.purpleAccent),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Color(0xFFFFFFFF), Color(0xFF8F8F8F)],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 4,
+                                  offset: const Offset(2, 2),
+                                ),
+                              ],
+                            ),
+                            child: const Text(
+                              "Category (15 kg)",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

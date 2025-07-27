@@ -11,20 +11,19 @@ class UpdatesPage extends StatelessWidget {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
-      bottomNavigationBar: Container(
-        color: const Color(0xFF1C1C1C),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 65,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Icon(Icons.home, color: Colors.white),
-            Icon(Icons.calendar_month, color: Colors.white),
-            Icon(Icons.group, color: Colors.white), // active icon
-          ],
-        ),
-      ),
-
+      // bottomNavigationBar: Container(
+      //   color: const Color(0xFF1C1C1C),
+      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+      //   height: 65,
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: const [
+      //       Icon(Icons.home, color: Colors.white),
+      //       Icon(Icons.calendar_month, color: Colors.white),
+      //       Icon(Icons.group, color: Colors.white), // active icon
+      //     ],
+      //   ),
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
@@ -53,11 +52,7 @@ class UpdatesPage extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, '/teams');
               },
-              child: Icon(
-                Icons.groups,
-                color: Color(0xFF9C49E2),
-                size: 35,
-              ),
+              child: Icon(Icons.groups, color: Color(0xFF9C49E2), size: 35),
             ),
           ),
         ],
@@ -92,10 +87,7 @@ class UpdatesPage extends StatelessWidget {
                   Center(
                     child: Opacity(
                       opacity: 0.04,
-                      child: SvgPicture.asset(
-                        'assets/logo.svg',
-                        width: 300,
-                      ),
+                      child: SvgPicture.asset('assets/logo.svg', width: 300),
                     ),
                   ),
 
@@ -106,20 +98,20 @@ class UpdatesPage extends StatelessWidget {
                       buildUpdateCard(
                         name: "John Doe",
                         message:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
                         time: "9:00 am",
                       ),
                       buildUpdateCard(
                         name: "Jane Doe",
                         message:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
                         time: "9:00 am",
                       ),
                       buildDateDivider("Yesterday"),
                       buildUpdateCard(
                         name: "John Doe",
                         message:
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
                         time: "9:00 am",
                       ),
                     ],
@@ -144,10 +136,7 @@ class UpdatesPage extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: 18,
-            backgroundColor: Color(0xFFD9D9D9),
-          ),
+          const CircleAvatar(radius: 18, backgroundColor: Color(0xFFD9D9D9)),
           const SizedBox(width: 10),
           Expanded(
             child: Container(
@@ -231,10 +220,7 @@ class UpdatesPage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [
-                    Colors.transparent,
-                    Color(0xFFB84BFF),
-                  ],
+                  colors: [Colors.transparent, Color(0xFFB84BFF)],
                 ),
               ),
             ),
@@ -260,10 +246,7 @@ class UpdatesPage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.centerRight,
                   end: Alignment.centerLeft,
-                  colors: [
-                    Colors.transparent,
-                    Color(0xFFB84BFF),
-                  ],
+                  colors: [Colors.transparent, Color(0xFFB84BFF)],
                 ),
               ),
             ),

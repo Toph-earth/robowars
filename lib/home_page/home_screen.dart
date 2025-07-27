@@ -34,10 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.all(10),
-            child: logo,
-          ),
+          scrolledUnderElevation: 0, // Disable elevation when scrolled
+          surfaceTintColor: Colors.transparent, // Remove tint changes
+          leading: Padding(padding: const EdgeInsets.all(10), child: logo),
           centerTitle: true,
           title: const Text(
             "Home",
@@ -65,59 +64,61 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: SingleChildScrollView(
-          child: Column(children: [
-            Container(
-              height: 4,
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Colors.transparent,
-                    Color(0xFFB84BFF),
-                    Colors.transparent,
-                  ],
-                  stops: [0, 0.5, 1.0],
+          child: Column(
+            children: [
+              Container(
+                height: 4,
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Colors.transparent,
+                      Color(0xFFB84BFF),
+                      Colors.transparent,
+                    ],
+                    stops: [0, 0.5, 1.0],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  GuessGame(),
-                  const SizedBox(height: 20),
-                  LiveMatch(),
-                  const SizedBox(height: 20),
-                  KeyContenders(
-                    contenders: [
-                      Contender(
-                        name: "Raven (60 kg)",
-                        team: "Team Orcus",
-                        result: "Wins",
-                      ),
-                      Contender(
-                        name: "Vulcan (15 kg)",
-                        team: "Team Orcus",
-                        result: "Wins",
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  QuickStats(
-                    stats: {
-                      "Matches": "6",
-                      "Wins": "4",
-                      "Losses": "2",
-                      "KOs": "3",
-                    },
-                  ),
-                  SizedBox(height: kBottomNavigationBarHeight + 16),
-                ],
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    GuessGame(),
+                    const SizedBox(height: 20),
+                    LiveMatch(),
+                    const SizedBox(height: 20),
+                    KeyContenders(
+                      contenders: [
+                        Contender(
+                          name: "Raven (60 kg)",
+                          team: "Team Orcus",
+                          result: "Wins",
+                        ),
+                        Contender(
+                          name: "Vulcan (15 kg)",
+                          team: "Team Orcus",
+                          result: "Wins",
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    QuickStats(
+                      stats: {
+                        "Matches": "6",
+                        "Wins": "4",
+                        "Losses": "2",
+                        "KOs": "3",
+                      },
+                    ),
+                    SizedBox(height: kBottomNavigationBarHeight + 16),
+                  ],
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

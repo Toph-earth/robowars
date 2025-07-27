@@ -11,6 +11,7 @@ import 'package:robowars_app/home_page/widgets/test_screen.dart';
 import 'home_page/main_layout.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(child: MyApp()));
 }
 
