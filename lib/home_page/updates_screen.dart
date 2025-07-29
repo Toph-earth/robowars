@@ -11,19 +11,7 @@ class UpdatesPage extends StatelessWidget {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
-      bottomNavigationBar: Container(
-        color: const Color(0xFF1C1C1C),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        height: 65,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Icon(Icons.home, color: Colors.white),
-            Icon(Icons.calendar_month, color: Colors.white),
-            Icon(Icons.group, color: Colors.white), // active icon
-          ],
-        ),
-      ),
+
 
       appBar: AppBar(
         backgroundColor: Colors.black,

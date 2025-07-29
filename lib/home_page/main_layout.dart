@@ -6,8 +6,27 @@ import 'package:robowars_app/home_page/schedule_screen.dart';
 import 'package:robowars_app/home_page/teams_screen.dart';
 import 'package:robowars_app/home_page/updates_screen.dart';
 import 'package:robowars_app/home_page/widgets/fluid_nav_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+
 
 class MainLayout extends ConsumerWidget {
+  MainLayout({super.key});
+
+  final icons = [
+    Icons.home_outlined,
+    Icons.calendar_month,
+    Icons.group,
+    Icons.campaign,
+  ];
+
+  final labels = [
+    'Home',
+    'Schedule',
+    'Teams',
+    'Updates',
+  ];
+
   final List<Widget> _pages = const [
     HomeScreen(),
     Schedule(),
@@ -15,51 +34,84 @@ class MainLayout extends ConsumerWidget {
     UpdatesPage(),
   ];
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(navigationProvider);
     final pageController = PageController(initialPage: currentIndex);
 
+
+
     return Scaffold(
       extendBody: true,
-      body: PageView(
-       controller: pageController,
-       physics: const BouncingScrollPhysics(),
-        onPageChanged: (index) {
-         ref.read(navigationProvider.notifier).setIndex(index);
-        },
-        children: _pages,
-      ),
-      bottomNavigationBar: FluidNavBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          pageController.animateToPage(index, duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut);
-        },
-        context: context,
-        icons: const [
-          Icons.home_filled,
-          Icons.calendar_month,
-          Icons.groups,
-          Icons.campaign,
-        ],
-        labels: const ['Home', 'Schedule', 'Teams', 'Updates'],
-        activeGradient: const LinearGradient(
-          colors: [
-            Color.fromARGB(255, 117, 50, 240),
-            Color.fromARGB(255, 135, 100, 181),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+      body: SafeArea(
+        child: PageView(
+          controller: pageController,
+          physics: const BouncingScrollPhysics(),
+          onPageChanged: (index) {
+            ref.read(navigationProvider.notifier).setIndex(index);
+          },
+          children: _pages,
         ),
-        barBackgroundColor: const Color.fromARGB(255, 33, 33, 33),
-        // Include all other required parameters
-        activeColor: Colors.white,
-        inactiveColor: Colors.grey,
-        iconSize: 24.0,
-        barHeight: 60.0,
-        bubbleSize: 52.0,
       ),
+      bottomNavigationBar: CurvedNavigationBar(
+        
+          index: currentIndex,
+          onTap: (index) {
+            pageController.animateToPage(index, duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
+          },
+          //context: context,
+        
+        
+          backgroundColor: Colors.black,
+          color: const Color(0xFF212121),
+          buttonBackgroundColor: Colors.transparent,
+          height: 70,
+          items: List.generate(
+            icons.length,
+                (index) {
+              final bool isSelected = index == currentIndex;
+              return CurvedNavigationBarItem(
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: isSelected
+                      ? const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF7532CC),
+                        Color(0xFF8764B5),
+                        Color(0xFFBA9BE2),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  )
+                      : null,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    icons[index],
+                    color: isSelected ? Colors.black : Colors.white,
+                    size: 30,
+                  ),
+                ),
+                label: isSelected ? labels[index] : '',
+                labelStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+              );
+            },
+          ),
+          //onTap: (index) {
+            //ref.read(navigationProvider.notifier).setIndex(index);
+        
+          //},
+        ),
+
     );
   }
 }

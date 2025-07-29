@@ -45,6 +45,7 @@ class _FluidNavBarState extends ConsumerState<FluidNavBar>
   late Animation<double> _animation;
   int? _previousIndex;
 
+
   @override
   void initState() {
     super.initState();

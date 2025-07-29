@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+
+
 
 class OurTeamPage extends StatefulWidget {
   const OurTeamPage({super.key});
@@ -78,6 +81,7 @@ class _OurTeamPageState extends State<OurTeamPage> {
               height: 4,
               margin: const EdgeInsets.symmetric(horizontal: 30),
               decoration: const BoxDecoration(
+
                 gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
@@ -98,8 +102,19 @@ class _OurTeamPageState extends State<OurTeamPage> {
         child: Container(
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFB84BFF)),
+
+            border: GradientBoxBorder(
+              width: 3,
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(250, 96, 60, 147),
+                  Color.fromARGB(255, 93, 62, 137),
+                  Color.fromRGBO(119, 95, 154, 0.98),
+                  Color.fromARGB(255, 161, 146, 186),
+                ],
+              ),
+            ),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: ListView.builder(
             padding: const EdgeInsets.all(16),
@@ -107,6 +122,7 @@ class _OurTeamPageState extends State<OurTeamPage> {
             itemBuilder: (context, index) {
               final member = teamMembers[index];
               return Container(
+
                 margin: const EdgeInsets.only(bottom: 20),
                 padding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
