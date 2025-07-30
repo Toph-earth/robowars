@@ -152,7 +152,7 @@ class _ScheduleState extends State<Schedule> {
 
 
                   return Container(
-                    height: 184,
+                    height: 185,
 
 
 
@@ -378,14 +378,24 @@ class _ScheduleState extends State<Schedule> {
                 itemCount: Teams.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    height: 184,
+                    height: 185,
 
 
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Color(0xFF9D3AE7))),
+                      border: GradientBoxBorder(
+                        width: 1,
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(250, 96, 60, 147),
+                            Color.fromARGB(255, 93, 62, 137),
+                            Color.fromRGBO(119, 95, 154, 0.98),
+                            Color.fromARGB(255, 161, 146, 186),
+                          ],
+                        ),
+                      ),
+                      borderRadius: BorderRadius.circular(10),),
 
                     child: Stack(
                       children: [
@@ -454,7 +464,7 @@ class _ScheduleState extends State<Schedule> {
                               children: [
                                 // Left: V/S
                                 Padding(
-                                  padding: EdgeInsets.only(left: 20),
+                                  padding: EdgeInsets.only(left: 20,top: 1),
                                   child: RichText(
                                     text: TextSpan(
                                       text: 'V',

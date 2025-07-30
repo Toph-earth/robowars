@@ -133,11 +133,12 @@ class _TeamScreenState extends State<TeamScreen>  {
 
       body: Column(
         children: [
-          //_buildFadingLine(),
+
           const SizedBox(height: 24),
           _buildToggle(),
           const SizedBox(height: 24),
           Expanded(child: _buildAnimatedBody()),
+          //_buildFadingLine(),
         ],
       ),
     );
@@ -147,18 +148,33 @@ class _TeamScreenState extends State<TeamScreen>  {
 
 
   Widget _buildFadingLine() {
-    return Container(
-      height: 4,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.transparent, Color(0xFF9D3AE7), Colors.transparent],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
+    return Row(
+      children: [
+
+        Container(
+          height: 4,
+          width: MediaQuery.of(context).size.width * 0.3, // Make it longer
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.transparent,
+                Color(0xFFB84BFF),
+                Colors.transparent,
+              ],
+              stops: [0, 0.5, 1.0],
+            ),
+          ),
         ),
-      ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.15, // 50% of screen width
+        ),
+      ],
     );
   }
+
 
   Widget _buildToggle() {
     return Row(
@@ -241,13 +257,13 @@ class _TeamScreenState extends State<TeamScreen>  {
                   Color.fromARGB(255, 161, 146, 186),
                 ],
               ),
-              
+
             ),
           borderRadius: BorderRadius.circular(20)),
-          child: ListView.separated(
+          child: ListView.builder(
             padding: const EdgeInsets.only(bottom: 40),
             itemCount: teamsData.length,
-            separatorBuilder: (_, __) => _buildFadingLine(),
+            //separatorBuilder: (_, __) => _buildFadingLine(),
             itemBuilder: (context, index) {
               final team = teamsData[index];
               final bots = (List<Map<String, dynamic>>.from(team['bots'])
@@ -334,14 +350,21 @@ class _TeamScreenState extends State<TeamScreen>  {
                                 );
                               }).toList(),
                             ),
+                            SizedBox(height: 10),
+                            _buildFadingLine()
+
+
                           ],
+
                         ),
                       ),
                     ],
+
                   ),
                 ),
               );
             },
+
           ),
         ),
 
@@ -363,6 +386,7 @@ class _TeamScreenState extends State<TeamScreen>  {
             ),
           ),
         ),
+
       ],
     ),
   );
