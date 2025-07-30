@@ -8,7 +8,7 @@ import 'package:robowars_app/home_page/updates_screen.dart';
 import 'package:robowars_app/home_page/widgets/fluid_nav_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-
+import 'package:flutter/services.dart';
 
 class MainLayout extends ConsumerWidget {
   MainLayout({super.key});

@@ -7,10 +7,15 @@ import 'package:robowars_app/home_page/teams_page.dart';
 import 'package:robowars_app/home_page/teams_screen.dart';
 import 'package:robowars_app/home_page/updates_screen.dart';
 import 'package:robowars_app/home_page/widgets/test_screen.dart';
+import 'package:flutter/services.dart';
+
 
 import 'home_page/main_layout.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky); // Hides status + nav bar
+
   runApp(ProviderScope(child: MyApp()));
 }
 
