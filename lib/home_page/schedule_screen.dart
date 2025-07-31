@@ -152,7 +152,7 @@ class _ScheduleState extends State<Schedule> {
 
 
                   return Container(
-                    height: 185,
+                    height: 200,
 
 
 
@@ -378,7 +378,7 @@ class _ScheduleState extends State<Schedule> {
                 itemCount: Teams.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    height: 185,
+                    height: 200,
 
 
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
@@ -583,7 +583,8 @@ class _ScheduleState extends State<Schedule> {
 
 
                 },
-              )
+              ),
+
           ),
         ],
       ),

@@ -14,7 +14,16 @@ import 'home_page/main_layout.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky); // Hides status + nav bar
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.immersive
+  );
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+    ),
+  );
 
   runApp(ProviderScope(child: MyApp()));
 }

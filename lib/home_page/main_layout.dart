@@ -44,6 +44,7 @@ class MainLayout extends ConsumerWidget {
 
     return Scaffold(
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PageView(
           controller: pageController,
