@@ -100,7 +100,7 @@ class MainLayout extends ConsumerWidget {
                     size: 30,
                   ),
                 ),
-                label: isSelected ? labels[index] : '',
+                label:  labels[index] ,
                 labelStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

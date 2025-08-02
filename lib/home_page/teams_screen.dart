@@ -650,7 +650,7 @@ class _TeamScreenState extends State<TeamScreen>  {
                                 labelStyle: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 10,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
                                 backgroundColor: Colors.transparent,
                                 shape: RoundedRectangleBorder(
