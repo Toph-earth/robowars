@@ -115,9 +115,9 @@ class _LiveMatchState extends State<LiveMatch> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(2.0),
-                child: Expanded(
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(2.0),
                   child: Text(
                     'Team Xenon Vs Team TerrorBulls',
                     style: GoogleFonts.montserrat(

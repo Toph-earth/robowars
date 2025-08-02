@@ -165,6 +165,7 @@ class _TeamScreenState extends State<TeamScreen>  {
           _buildToggle(),
           const SizedBox(height: 24),
           Expanded(child: _buildAnimatedBody()),
+          SizedBox(height: 50,)
         ],
       ),
     );
@@ -364,23 +365,7 @@ class _TeamScreenState extends State<TeamScreen>  {
         ),
 
         // Fade at bottom
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          height: 40,
-          child: IgnorePointer(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black],
-                ),
-              ),
-            ),
-          ),
-        ),
+
       ],
     ),
   );

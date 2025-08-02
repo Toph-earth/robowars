@@ -46,7 +46,9 @@ class MainLayout extends ConsumerWidget {
       extendBody: true,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
+
         child: PageView(
+
           controller: pageController,
           physics: const BouncingScrollPhysics(),
           onPageChanged: (index) {
@@ -68,7 +70,7 @@ class MainLayout extends ConsumerWidget {
           backgroundColor: Colors.black,
           color: const Color(0xFF212121),
           buttonBackgroundColor: Colors.transparent,
-          height: 70,
+          height: 60,
           items: List.generate(
             icons.length,
                 (index) {
